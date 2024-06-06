@@ -9,9 +9,9 @@ export function App() {
     <div>
       <SensorChart />
     </div>
-    {/* <div>
+    <div>
       <AutomationStatus />
-    </div> */}
+    </div>
    </div>
   )
 }
