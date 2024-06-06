@@ -3,7 +3,6 @@ import axios from 'axios';
 
 export function AutomationStatus(){
   const [status, setStatus] = useState(null);
-
   useEffect(() => {
     const fetchData = () => {
       axios.get('http://127.0.0.1:8000/automation/latest')
@@ -19,12 +18,16 @@ export function AutomationStatus(){
     fetchData();
 
     // Set interval to fetch data every second
-    const interval = setInterval(fetchData, 5000);
+    const interval = setInterval(fetchData, 1000);
 
     // Cleanup interval on unmount
     return () => clearInterval(interval);
     
   }, []);
+  if(status != null){
+  if(status[0] == 'W'){setStatus("Habilitado / Sentido AntiHorário");}
+  if(status[0] == 'M'){setStatus("Habilitado / Sentido Horário");}}
+  console.log(status);
 
   return (
     <div className="p-4 w-full">
