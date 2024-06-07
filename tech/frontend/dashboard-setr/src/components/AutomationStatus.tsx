@@ -7,7 +7,11 @@ export function AutomationStatus(){
     const fetchData = () => {
       axios.get('http://127.0.0.1:8000/automation/latest')
       .then(response => {
-        setStatus(response.data.state);
+        if(response.data.state != null){
+          if(response.data.state[0] == 'W'){setStatus("Habilitado / Sentido AntiHorário");}
+          else if(response.data.state[0] == 'M'){setStatus("Habilitado / Sentido Horário");}
+          else {setStatus("Desabilitado");}
+        }
       })
       .catch(error => {
         console.error('Error fetching automation status:', error);
@@ -24,10 +28,7 @@ export function AutomationStatus(){
     return () => clearInterval(interval);
     
   }, []);
-  if(status != null){
-  if(status[0] == 'W'){setStatus("Habilitado / Sentido AntiHorário");}
-  if(status[0] == 'M'){setStatus("Habilitado / Sentido Horário");}}
-  console.log(status);
+  
 
   return (
     <div className="p-4 w-full">
